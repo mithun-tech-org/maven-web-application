@@ -1,0 +1,38 @@
+
+node{
+
+def mavenHome = tool name: 'maven3.8.6'
+//tool name: is predefined keyword to specify path of the 'tools' dir
+// again it adds maven.3.8.6 and the end. so full path will be
+// like -> /var/lib/jenkins/tools/hudson.maven_installtion/maven.3.8.6
+// since exutable r in bin dir so will add /bin/ at end. check in build stage 
+
+//feching code from github
+stage ('CheckoutCode'){
+git branch: 'development', credentialsId: '46487f97-71f7-41ca-a371-1b6777350b63', url: 'https://github.com/mithun-tech-org/maven-web-application.git'
+}
+
+//build
+stage('Build'){
+sh "${mavenHome}/bin/mvn clean package"
+}
+
+//execute sonarqube report
+stage('ExecuteSonarQubeReport'){
+sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+
+//upload artifact into nexus
+stage('UploadArtifactIntoNexus'){
+sh "${mavenHome}/bin/mvn deploy"
+}
+
+//deploy app to tomcat server
+stage('deployapp'){
+sshagent(['98267573-190b-400f-9f65-8d5f7c52ddfa']) {
+    sh "scp -o StrictHostKeyChecking=no  target/maven-web-application.war ec2-user@172.31.38.13:/opt/apache-tomcat-9.0.68/webapps/"
+}
+}
+
+
+} // node closing
