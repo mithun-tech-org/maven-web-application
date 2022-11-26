@@ -51,7 +51,7 @@ sshagent(['98267573-190b-400f-9f65-8d5f7c52ddfa']) {
 } // node closing
 
 // slack notifications func from stack overflow (https://stackoverflow.com/questions/39140191/how-to-send-slack-notification-after-a-jenkins-pipeline-build-failed)
-def sendSlackNotfications(String buildStatus = 'STARTED') {
+def sendSlackNotifications(String buildStatus = 'STARTED') {
   // build status of null means successful
   buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
