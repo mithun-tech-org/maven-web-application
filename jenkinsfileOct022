@@ -21,7 +21,7 @@ git branch: 'development', credentialsId: '46487f97-71f7-41ca-a371-1b6777350b63'
 stage('Build'){
 sh "${mavenHome}/bin/mvn clean package"
 }
-
+/* multiline coment commenting soarqube nuxus tomcat stages 
 //execute sonarqube report
 stage('ExecuteSonarQubeReport'){
 sh "${mavenHome}/bin/mvn sonar:sonar"
@@ -39,6 +39,8 @@ sshagent(['98267573-190b-400f-9f65-8d5f7c52ddfa']) {
 }
 }
 
+Ending multiline comment below 
+*/
 }//try closing
 
  catch (e) {
