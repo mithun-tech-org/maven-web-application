@@ -13,7 +13,7 @@ def mavenHome = tool name: 'maven3.8.6'
 
 //feching code from github
 stage ('CheckoutCode'){
-sendSlackNotfications("STARTED")
+sendSlackNotifications("STARTED")
 git branch: 'development', credentialsId: '46487f97-71f7-41ca-a371-1b6777350b63', url: 'https://github.com/mithun-tech-org/maven-web-application.git'
 }
 
